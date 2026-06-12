@@ -1,22 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 function Login() {
 
  const navigate = useNavigate();
 
- const [usuario,setUsuario] = useState("");
+ const [email,setEmail] = useState("");
  const [password,setPassword] = useState("");
 
- const ingresar = () => {
+ const ingresar = async () => {
 
-  if(usuario === "admin" && password === "1234"){
+  try {
 
-   navigate("/usuarios");
+   const response = await api.post("/login",{
+    email,
+    password
+   });
 
-  }else{
+   if(response.data === "ok"){
 
-   alert("Credenciales incorrectas");
+    navigate("/usuarios");
+
+   }else{
+
+    alert("Credenciales incorrectas");
+
+   }
+
+  }
+  catch(error){
+
+   console.log(error);
+   alert("Error al conectar con el servidor");
 
   }
 
@@ -29,10 +45,10 @@ function Login() {
    <h2>Login</h2>
 
    <input
-    type="text"
-    placeholder="Usuario"
-    value={usuario}
-    onChange={(e)=>setUsuario(e.target.value)}
+    type="email"
+    placeholder="Correo"
+    value={email}
+    onChange={(e)=>setEmail(e.target.value)}
    />
 
    <input
