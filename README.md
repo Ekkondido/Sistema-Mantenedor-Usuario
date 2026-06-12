@@ -3,7 +3,7 @@
 ## Integrantes
 
 * Marcelo Mancilla
-* [Nombre de tu compañero]
+* Joaquin Medina
 
 ---
 
